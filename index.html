@@ -1,0 +1,1959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MIAASA - Premium Footwear</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --dark-bg: #0a0a0a;
+      --text-light: #f8f8f8;
+      --text-gray: #d1d1d1;
+      --accent-gold: #d4af37;
+      --accent-gold-light: #f1e5c2;
+      --border-color: rgba(255,255,255,0.15);
+      --sale-red: #e63946;
+      --card-bg: rgba(30, 30, 30, 0.65);
+      --transition-slow: 0.5s ease;
+      --transition-fast: 0.3s ease;
+    }
+
+    body {
+      background: var(--dark-bg);
+      color: var(--text-light);
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+    }
+
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--dark-bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent-gold);
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #b8941f;
+    }
+
+    /* Navigation */
+    .nav-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(15,15,15,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      transition: all var(--transition-fast);
+    }
+    
+    .nav-container.scrolled {
+      padding: 0.8rem 1.5rem;
+    }
+
+    .logo-box {
+      border: 2px solid var(--border-color);
+      padding: 0.8rem 2.5rem;
+      text-transform: uppercase;
+      letter-spacing: .4rem;
+      font-weight: 600;
+      background: transparent;
+      color: var(--text-light);
+      transition: all var(--transition-fast);
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-size: 1.3rem;
+      font-family: 'Playfair Display', serif;
+    }
+    .logo-box:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 2.8rem;
+      flex-wrap: wrap;
+      transition: max-height 0.4s ease;
+      overflow: hidden;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-gray);
+      font-size: 1.05rem;
+      letter-spacing: .15rem;
+      transition: all var(--transition-fast);
+      position: relative;
+      padding: 0.5rem 0;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .nav-links a:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-gold);
+      transition: width var(--transition-fast);
+    }
+    .nav-links a:hover {
+      color: var(--accent-gold-light);
+    }
+    .nav-links a:hover:after {
+      width: 100%;
+    }
+
+    .nav-icons {
+      display: flex;
+      gap: 1.8rem;
+      align-items: center;
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+    }
+    .nav-icon {
+      color: var(--text-gray);
+      font-size: 1.4rem;
+      transition: all var(--transition-fast);
+      position: relative;
+    }
+    .nav-icon:hover {
+      color: var(--accent-gold);
+      transform: translateY(-3px);
+    }
+    
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--sale-red);
+      color: white;
+      font-size: 0.7rem;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-gray);
+      font-size: 1.6rem;
+      cursor: pointer;
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 100;
+      transition: all var(--transition-fast);
+    }
+    .mobile-menu-btn:hover {
+      color: var(--accent-gold);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      margin-top: 120px;
+    }
+    .hero-bg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+      filter: brightness(0.6);
+      transform: scale(1);
+      transition: transform 6s ease;
+    }
+    .hero-section:hover .hero-bg {
+      transform: scale(1.08);
+    }
+    .hero-content {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      z-index: 1;
+      position: relative;
+      text-align: center;
+    }
+    .sale-badge {
+      background: linear-gradient(135deg, var(--sale-red) 0%, #c1121f 100%);
+      color: white;
+      padding: 0.7rem 2rem;
+      font-size: 0.95rem;
+      letter-spacing: 3px;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      border-radius: 30px;
+      box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+      text-transform: uppercase;
+      font-weight: 600;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    .hero-title {
+      font-size: 4.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--text-light);
+      line-height: 1.2;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    }
+    .hero-title span { 
+      color: var(--accent-gold);
+      position: relative;
+      display: inline-block;
+      transition: all 0.4s ease;
+      text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    }
+    .hero-title span:hover {
+      transform: translateY(-5px);
+      text-shadow: 0 5px 15px rgba(212, 175, 55, 0.7);
+    }
+    .hero-title span:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--accent-gold);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.5s ease;
+    }
+    .hero-title:hover span:after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    .hero-description {
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: var(--text-gray);
+    }
+    .hero-highlight {
+      font-size: 3rem;
+      color: var(--accent-gold);
+      font-weight: 700;
+      margin: 1.5rem 0;
+      position: relative;
+      display: inline-block;
+      transition: all 0.4s ease;
+    }
+    .hero-highlight:hover {
+      transform: scale(1.1);
+      text-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
+    }
+    .hero-highlight:before, .hero-highlight:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 50px;
+      height: 2px;
+      background: var(--accent-gold);
+      transition: all 0.4s ease;
+    }
+    .hero-highlight:before {
+      left: -60px;
+    }
+    .hero-highlight:after {
+      right: -60px;
+    }
+    .hero-highlight:hover:before {
+      left: -70px;
+      width: 60px;
+    }
+    .hero-highlight:hover:after {
+      right: -70px;
+      width: 60px;
+    }
+    .cta-button {
+      background: linear-gradient(135deg, var(--accent-gold), #b8941f);
+      color: var(--dark-bg);
+      padding: 1.2rem 3rem;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 25px rgba(212,175,55,0.4);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .cta-button:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+    .cta-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(212,175,55,0.6);
+      background: linear-gradient(135deg, #b8941f, var(--accent-gold));
+    }
+    .cta-button:hover:before {
+      left: 100%;
+    }
+
+    /* Product Section */
+    .product-section {
+      padding: 100px 0;
+      background: var(--dark-bg);
+      color: var(--text-light);
+    }
+    .product-img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+      filter: brightness(0.9);
+    }
+    .product-img:hover {
+      transform: scale(1.05);
+      filter: brightness(1);
+      box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
+    }
+    .product-details h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--text-light);
+    }
+    .product-details p {
+      font-size: 1.1rem;
+      color: var(--text-gray);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .product-details ul {
+      color: var(--text-gray);
+      margin-bottom: 1.5rem;
+      padding-left: 1.2rem;
+    }
+    .product-details ul li {
+      margin-bottom: 0.5rem;
+      transition: all 0.3s ease;
+      padding-left: 5px;
+    }
+    .product-details ul li:hover {
+      color: var(--accent-gold-light);
+      transform: translateX(5px);
+    }
+    .product-tags span {
+      background-color: rgba(212, 175, 55, 0.2);
+      color: var(--accent-gold);
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin: 5px 8px 5px 0;
+      display: inline-block;
+      font-size: 0.9rem;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .product-tags span:hover {
+      background-color: rgba(212, 175, 55, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 10px rgba(212, 175, 55, 0.2);
+    }
+
+    /* Feature Cards */
+    .feature-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      transition: all var(--transition-slow);
+      position: relative;
+    }
+    .feature-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--accent-gold);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+    }
+    .feature-img {
+      overflow: hidden;
+      position: relative;
+    }
+    .feature-img img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      filter: brightness(0.9);
+    }
+    .feature-card:hover img { 
+      transform: scale(1.07); 
+      filter: brightness(1);
+    }
+    .feature-content { 
+      padding: 2rem; 
+      flex-grow: 1; 
+      display: flex;
+      flex-direction: column;
+    }
+    .feature-content h3 {
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+    .feature-content h3:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 30px;
+      height: 2px;
+      background: var(--accent-gold);
+      transition: width var(--transition-fast);
+    }
+    .feature-card:hover .feature-content h3:after {
+      width: 100%;
+    }
+    .feature-content p {
+      flex-grow: 1;
+      margin-bottom: 1.5rem;
+      color: var(--text-gray);
+    }
+    .feature-content a {
+      align-self: flex-start;
+      color: var(--accent-gold) !important;
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .feature-content a:after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent-gold);
+      transition: width var(--transition-fast);
+    }
+    .feature-content a:hover {
+      transform: translateX(5px);
+    }
+    .feature-content a:hover:after {
+      width: 100%;
+    }
+
+    /* Carousel Section */
+    .carousel-section {
+      padding: 80px 0;
+      background: rgba(10, 10, 10, 0.7);
+    }
+    .carousel-title {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    .carousel-title:after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: var(--accent-gold);
+    }
+    .carousel-container {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 50px;
+    }
+    .cards-carousel {
+      display: flex;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+    .cards-carousel::-webkit-scrollbar {
+      display: none; /* Chrome, Safari and Opera */
+    }
+    .carousel-card {
+      flex: 0 0 calc(33.333% - 20px);
+      margin: 0 10px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      transition: all var(--transition-slow);
+    }
+    .carousel-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--accent-gold);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+    }
+    .carousel-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      filter: brightness(0.9);
+    }
+    .carousel-card:hover .carousel-img {
+      transform: scale(1.07);
+      filter: brightness(1);
+    }
+    .carousel-card-content {
+      padding: 1.5rem;
+    }
+    .carousel-card-content h4 {
+      margin-bottom: 0.8rem;
+      position: relative;
+      display: inline-block;
+    }
+    .carousel-card-content h4:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 30px;
+      height: 2px;
+      background: var(--accent-gold);
+      transition: width var(--transition-fast);
+    }
+    .carousel-card:hover .carousel-card-content h4:after {
+      width: 100%;
+    }
+    .carousel-card-content p {
+      color: var(--text-gray);
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+    .carousel-price {
+      color: var(--accent-gold);
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+    .carousel-card:hover .carousel-price {
+      transform: scale(1.05);
+    }
+    .carousel-btn {
+      background: transparent;
+      color: var(--accent-gold);
+      border: 1px solid var(--accent-gold);
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      transition: all var(--transition-fast);
+      text-decoration: none;
+      display: inline-block;
+      font-size: 0.9rem;
+    }
+    .carousel-btn:hover {
+      background: var(--accent-gold);
+      color: var(--dark-bg);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 10px rgba(212, 175, 55, 0.3);
+    }
+
+    /* Carousel Navigation */
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(212, 175, 55, 0.2);
+      border: none;
+      color: var(--accent-gold);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      z-index: 10;
+    }
+    .carousel-nav:hover {
+      background: var(--accent-gold);
+      color: var(--dark-bg);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .carousel-prev {
+      left: 0;
+    }
+    .carousel-next {
+      right: 0;
+    }
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+      gap: 10px;
+    }
+    .carousel-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .carousel-dot.active {
+      background: var(--accent-gold);
+      transform: scale(1.2);
+    }
+    .carousel-dot:hover {
+      background: var(--accent-gold);
+      transform: scale(1.1);
+    }
+
+    /* New Sections */
+    
+    /* Testimonials */
+    .testimonials-section {
+      padding: 80px 0;
+      background: var(--dark-bg);
+    }
+    .testimonial-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 1rem;
+      border: 1px solid var(--border-color);
+      transition: all var(--transition-fast);
+    }
+    .testimonial-card:hover {
+      border-color: var(--accent-gold);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      color: var(--text-gray);
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+    }
+    .testimonial-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 1rem;
+      object-fit: cover;
+      transition: all 0.3s ease;
+    }
+    .testimonial-card:hover .testimonial-avatar {
+      transform: scale(1.1);
+    }
+    .testimonial-name {
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+    .testimonial-role {
+      color: var(--accent-gold);
+      font-size: 0.9rem;
+    }
+    
+    /* Brand Story */
+    .brand-story {
+      padding: 100px 0;
+      background: rgba(10, 10, 10, 0.7);
+      position: relative;
+    }
+    .brand-story:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+      opacity: 0.1;
+      z-index: -1;
+    }
+    .brand-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .brand-stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 1rem;
+      transition: all 0.3s ease;
+    }
+    .stat-item:hover {
+      transform: translateY(-5px);
+    }
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-bottom: 0.5rem;
+      transition: all 0.3s ease;
+    }
+    .stat-item:hover .stat-number {
+      transform: scale(1.1);
+      text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    }
+    .stat-label {
+      color: var(--text-gray);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    /* Instagram Feed */
+    .instagram-section {
+      padding: 80px 0;
+    }
+    .instagram-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-top: 2rem;
+    }
+    .instagram-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      aspect-ratio: 1;
+      transition: all 0.3s ease;
+    }
+    .instagram-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+    }
+    .instagram-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .instagram-item:hover img {
+      transform: scale(1.1);
+    }
+    .instagram-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .instagram-item:hover .instagram-overlay {
+      opacity: 1;
+    }
+    .instagram-icon {
+      color: white;
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    .instagram-item:hover .instagram-icon {
+      transform: scale(1.2);
+    }
+    
+    /* Quick Shop Bar */
+    .quick-shop-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(20,20,20,0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 0;
+      border-top: 1px solid var(--border-color);
+      z-index: 999;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+    }
+    .quick-shop-bar.visible {
+      transform: translateY(0);
+    }
+    .quick-shop-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .quick-shop-text {
+      flex-grow: 1;
+    }
+    .quick-shop-text h4 {
+      margin-bottom: 0.2rem;
+    }
+    .quick-shop-text p {
+      color: var(--text-gray);
+      margin: 0;
+      font-size: 0.9rem;
+    }
+    .quick-shop-actions {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    /* Footer */
+    footer {
+      background: rgba(10, 10, 10, 0.95);
+      border-top: 1px solid var(--border-color);
+      padding: 4rem 0 2rem;
+      margin-top: 5rem;
+    }
+    .footer-title {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    .footer-title:after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--accent-gold);
+    }
+    .footer-links {
+      list-style: none;
+      padding: 0;
+    }
+    .footer-links li {
+      margin-bottom: 0.8rem;
+      transition: all 0.3s ease;
+    }
+    .footer-links li:hover {
+      transform: translateX(5px);
+    }
+    .footer-links a {
+      color: var(--text-gray);
+      text-decoration: none;
+      transition: all var(--transition-fast);
+    }
+    .footer-links a:hover {
+      color: var(--accent-gold);
+      padding-left: 5px;
+    }
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      color: var(--text-light);
+      transition: all var(--transition-fast);
+    }
+    .social-links a:hover {
+      background: var(--accent-gold);
+      color: var(--dark-bg);
+      transform: translateY(-3px);
+    }
+    .copyright {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-gray);
+      font-size: 0.9rem;
+    }
+    
+    /* Newsletter */
+    .newsletter-form {
+      display: flex;
+      margin-top: 1rem;
+    }
+    .newsletter-input {
+      flex-grow: 1;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid var(--border-color);
+      border-right: none;
+      border-radius: 4px 0 0 4px;
+      padding: 0.75rem 1rem;
+      color: var(--text-light);
+      outline: none;
+      transition: all var(--transition-fast);
+    }
+    .newsletter-input:focus {
+      background: rgba(255,255,255,0.15);
+      border-color: var(--accent-gold);
+    }
+    .newsletter-btn {
+      background: var(--accent-gold);
+      color: var(--dark-bg);
+      border: none;
+      border-radius: 0 4px 4px 0;
+      padding: 0 1.2rem;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .newsletter-btn:hover {
+      background: #b8941f;
+      transform: scale(1.05);
+    }
+
+    /* Back to Top */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      color: var(--dark-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--transition-fast);
+      z-index: 999;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    .back-to-top:hover {
+      transform: translateY(-5px);
+      background: #b8941f;
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animated { opacity: 0; }
+    .show { animation: fadeUp 1s ease forwards; }
+    
+    /* Lazy Loading */
+    .lazy-load {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .lazy-load.loaded {
+      opacity: 1;
+    }
+
+    /* NEW: Video Section Styles */
+    .video-section {
+      padding: 100px 0;
+      background: var(--dark-bg);
+      position: relative;
+    }
+    .video-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+    }
+    .video-player {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      background: #000;
+    }
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .video-overlay:hover {
+      background: rgba(0,0,0,0.2);
+    }
+    .play-button {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(212, 175, 55, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark-bg);
+      font-size: 2rem;
+      transition: all 0.3s ease;
+      transform: scale(1);
+    }
+    .video-overlay:hover .play-button {
+      transform: scale(1.1);
+      background: rgba(212, 175, 55, 1);
+    }
+    .video-content {
+      text-align: center;
+      margin-top: 2rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .hero-title { font-size: 3.5rem; }
+      .hero-highlight { font-size: 2.5rem; }
+      .hero-highlight:before, .hero-highlight:after {
+        width: 30px;
+      }
+      .hero-highlight:before {
+        left: -40px;
+      }
+      .hero-highlight:after {
+        right: -40px;
+      }
+      .product-details h1 { font-size: 2rem; }
+      .carousel-card {
+        flex: 0 0 calc(50% - 20px);
+      }
+      .instagram-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .quick-shop-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+      .video-player {
+        height: 400px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-btn { display: block; }
+      .nav-links {
+        flex-direction: column;
+        width: 100%;
+        background: rgba(15,15,15,0.95);
+        padding: 2rem 0;
+        max-height: 0;
+      }
+      .nav-links.active { 
+        max-height: 500px; 
+        padding: 2rem 0;
+      }
+      .hero-title { font-size: 2.5rem; }
+      .hero-highlight { font-size: 2rem; }
+      .hero-highlight:before, .hero-highlight:after {
+        width: 20px;
+      }
+      .hero-highlight:before {
+        left: -30px;
+      }
+      .hero-highlight:after {
+        right: -30px;
+      }
+      .newsletter-form {
+        flex-direction: column;
+      }
+      .newsletter-input {
+        border-right: 1px solid var(--border-color);
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+      }
+      .newsletter-btn {
+        border-radius: 4px;
+        padding: 0.75rem 1rem;
+      }
+      .product-details h1 { font-size: 1.8rem; }
+      .carousel-card {
+        flex: 0 0 calc(100% - 20px);
+      }
+      .carousel-container {
+        padding: 0 40px;
+      }
+      .brand-stats {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .video-player {
+        height: 300px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero-title { font-size: 2rem; }
+      .hero-description { font-size: 1rem; }
+      .hero-highlight { font-size: 1.8rem; }
+      .hero-highlight:before, .hero-highlight:after {
+        display: none;
+      }
+      .sale-badge {
+        padding: 0.5rem 1.5rem;
+        font-size: 0.8rem;
+      }
+      .cta-button {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+      }
+      .nav-icons {
+        gap: 1.2rem;
+      }
+      .nav-icon {
+        font-size: 1.2rem;
+      }
+      .logo-box {
+        padding: 0.6rem 1.5rem;
+        font-size: 1.1rem;
+        letter-spacing: .2rem;
+      }
+      .product-details h1 { font-size: 1.5rem; }
+      .carousel-container {
+        padding: 0 30px;
+      }
+      .carousel-nav {
+        width: 35px;
+        height: 35px;
+      }
+      .instagram-grid {
+        grid-template-columns: 1fr;
+      }
+      .video-player {
+        height: 250px;
+      }
+      .play-button {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <div class="nav-container">
+    <button class="mobile-menu-btn" aria-label="Toggle navigation menu"><i class="fas fa-bars"></i></button>
+    <div class="nav-icons">
+      <a href="#" class="nav-icon" aria-label="Search"><i class="fas fa-search"></i></a>
+      <a href="#" class="nav-icon" aria-label="Account"><i class="fas fa-user"></i></a>
+      <a href="#" class="nav-icon" aria-label="Shopping cart"><i class="fas fa-shopping-bag"></i><span class="cart-count">3</span></a>
+    </div>
+    <a href="#" class="logo-box text-decoration-none">MIAASA</a>
+    <nav class="nav-links">
+      <a href="#">Home</a>
+      <a href="product.html">Collections</a>
+      <a href="contact.html">Contact</a>
+      <a href="about us.html">About Us</a>
+    </nav>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="sale-badge animated">SEASON END SALE</div>
+      <h1 class="hero-title animated">Season End <span>Sale</span></h1>
+      <p class="hero-description animated">From timeless classics to everyday staples — grab them all at up to 80% OFF. Limited time only!</p>
+      <div class="hero-highlight animated">UPTO 80% OFF</div>
+      <a href="product.html"> <button class="cta-button animated">Shop Now</button></a>
+    </div>
+  </section>
+
+  <!-- Product Section 1 -->
+  <section class="product-section" id="product-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-5 mb-4 mb-md-0 text-center">
+          <img src="https://images.unsplash.com/photo-1605812860427-4024433a70fd?auto=format&fit=crop&w=800&q=80" alt="Premium Leather Boots" class="product-img img-fluid" />
+        </div>
+        <div class="col-md-5 offset-md-1 product-details">
+          <h1>Premium Leather Boots</h1>
+          <p><strong>SKU:</strong> MIA-BT-001</p>
+          <p><strong>Categories:</strong> Men's Footwear, Boots, Premium Collection</p>
+          <p><strong>Description:</strong>  
+            Crafted from the finest full-grain leather, these boots combine timeless style with exceptional durability. Featuring a comfortable cushioned insole and durable rubber outsole, they're perfect for both urban exploration and outdoor adventures.
+          </p>
+          <ul>
+            <li><strong>Material:</strong> Full-grain Leather</li>
+            <li><strong>Color:</strong> Dark Brown</li>
+            <li><strong>Sole:</strong> Durable Rubber</li>
+            <li><strong>Closure:</strong> Lace-up</li>
+            <li><strong>Lining:</strong> Breathable Textile</li>
+            <li><strong>Water Resistance:</strong> Weather-resistant treatment</li>
+            <li><strong>Sizes:</strong> US 7-13</li>
+            <li><strong>Warranty:</strong> 1 Year Quality Guarantee</li>
+          </ul>
+          <div class="product-tags">
+            <span>#leather boots</span>
+            <span>#premium footwear</span>
+            <span>#mens fashion</span>
+            <span>#durable shoes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Section -->
+  <section class="video-section">
+    <div class="container">
+      <h2 class="text-center mb-5 animated">Craftsmanship in Motion</h2>
+      <div class="video-container">
+        <video class="video-player" poster="https://images.unsplash.com/photo-1605348532760-6753d2c5c97b?auto=format&fit=crop&w=1000&q=80" controls>
+          <!-- Fixed video source - using a placeholder video URL -->
+          <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay">
+          <div class="play-button">
+            <i class="fas fa-play"></i>
+          </div>
+        </div>
+      </div>
+      <div class="video-content animated">
+        <h3>Behind the Scenes at MIAASA</h3>
+        <p>Discover the meticulous craftsmanship and attention to detail that goes into every pair of MIAASA footwear. From material selection to final quality control, we ensure excellence at every step.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Section 2 -->
+  <section class="product-section" id="product-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-5 product-details">
+          <h1>Elegant Heeled Sandals</h1>
+          <p><strong>SKU:</strong> MIA-SD-202</p>
+          <p><strong>Categories:</strong> Women's Footwear, Sandals, Evening Wear</p>
+          <p><strong>Description:</strong> 
+            These elegant heeled sandals feature a delicate strap design and comfortable block heel, making them perfect for special occasions. The cushioned footbed ensures all-day comfort while the sophisticated design adds a touch of glamour to any outfit.
+          </p>
+          <ul>
+            <li><strong>Material:</strong> Genuine Leather</li>
+            <li><strong>Heel Height:</strong> 3 inches</li>
+            <li><strong>Color:</strong> Nude</li>
+            <li><strong>Closure:</strong> Ankle Strap</li>
+            <li><strong>Toe Style:</strong> Open Toe</li>
+            <li><strong>Sizes:</strong> US 5-11</li>
+            <li><strong>Occasion:</strong> Formal, Evening</li>
+          </ul>
+          <div class="product-tags">
+            <span>#heeled sandals</span>
+            <span>#womens footwear</span>
+            <span>#evening shoes</span>
+            <span>#elegant design</span>
+          </div>
+        </div>
+        <div class="col-md-5 offset-md-1 mb-4 mb-md-0 text-center">
+          <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=800&q=80" alt="Elegant Heeled Sandals" class="product-img" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Section 3 -->
+  <section class="product-section" id="product-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-5 mb-4 mb-md-0 text-center">
+          <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=80" alt="Classic White Sneakers" class="product-img" />
+        </div>
+        <div class="col-md-5 offset-md-1 product-details">
+          <h1>Classic White Sneakers</h1>
+          <p><strong>SKU:</strong> MIA-SN-305</p>
+          <p><strong>Categories:</strong> Unisex Footwear, Sneakers, Casual Wear</p>
+          <p><strong>Description:</strong> 
+            These timeless white sneakers combine comfort and style for everyday wear. Made from premium canvas with a rubber sole, they offer both durability and a clean, minimalist aesthetic that pairs well with any casual outfit.
+          </p>
+          <ul>
+            <li><strong>Material:</strong> Premium Canvas</li>
+            <li><strong>Sole:</strong> Flexible Rubber</li>
+            <li><strong>Color:</strong> Pure White</li>
+            <li><strong>Lacing:</strong> Traditional</li>
+            <li><strong>Insole:</strong> Memory Foam</li>
+            <li><strong>Care:</strong> Machine Washable</li>
+            <li><strong>Sizes:</strong> US 6-12</li>
+            <li><strong>Style:</strong> Low-top</li>
+          </ul>
+          <div class="product-tags">
+            <span>#white sneakers</span>
+            <span>#casual footwear</span>
+            <span>#unisex shoes</span>
+            <span>#minimalist design</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Collections -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-4 animated">Season's Top Picks</h2>
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="feature-card animated">
+            <div class="feature-img">
+              <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=600&q=80" alt="Season's Finest Collection" class="lazy-load" loading="lazy">
+            </div>
+            <div class="feature-content">
+              <h3>Season's Finest</h3>
+              <p>Discover a curated range of footwear defining this season's style. Crafted with premium materials and attention to detail.</p>
+              <a href="product.html">Explore more →</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="feature-card animated">
+            <div class="feature-img">
+              <img src="https://images.unsplash.com/photo-1607522370275-f14206abe5d3?auto=format&fit=crop&w=600&q=80" alt="High Impact Silhouettes" class="lazy-load" loading="lazy">
+            </div>
+            <div class="feature-content">
+              <h3>High Impact Silhouettes</h3>
+              <p>Bold designs that make a statement this festive season. Stand out with our exclusive limited edition designs.</p>
+              <a href="product.html">Explore more →</a>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="feature-card animated">
+            <div class="feature-img">
+              <img src="https://images.unsplash.com/photo-1575537302964-96cd47c06b1b?auto=format&fit=crop&w=600&q=80" alt="Comfort Collection" class="lazy-load" loading="lazy">
+            </div>
+            <div class="feature-content">
+              <h3>Comfort Collection</h3>
+              <p>All-day comfort meets sophisticated style. Perfect for those who value both aesthetics and functionality.</p>
+              <a href="product.html">Explore more →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Card Carousel Section -->
+  <section class="carousel-section">
+    <div class="container">
+      <h2 class="carousel-title animated">Featured Products</h2>
+      <div class="carousel-container">
+        <button class="carousel-nav carousel-prev" aria-label="Previous products">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="cards-carousel">
+          <!-- Card 1 -->
+          <div class="carousel-card animated">
+            <div class="feature-img">
+              <img src="https://images.unsplash.com/photo-1575537302964-96cd47c06b1b?auto=format&fit=crop&w=600&q=80" alt="Urban Explorer Sneakers" class="carousel-img lazy-load" loading="lazy">
+            </div>
+            <div class="carousel-card-content">
+              <h4>Urban Explorer Sneakers</h4>
+              <p>Designed for the modern city dweller with comfort and style in mind.</p>
+              <div class="carousel-price">$129.99</div>
+              <a href="product.html" class="carousel-btn">View Details</a>
+            </div>
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="carousel-card animated">
+            <div class="feature-img">
+              <img src="https://images.unsplash.com/photo-1542280756-74b2f55e73ab?auto=format&fit=crop&w=600&q=80" alt="Classic Leather Loafers" class="carousel-img lazy-load" loading="lazy">
+            </div>
+            <div class="carousel-card-content">
+              <h4>Classic Leather Loafers</h4>
+              <p>Timeless elegance with premium full-grain leather construction.</p>
+              <div class="carousel-price">$159.99</div>
+              <a href="product.html" class="carousel-btn">View Details</a>
+            </div>
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="carousel-card animated">
+            <div class="feature-img">
+              <img src="https://images.unsplash.com/photo-1605812860427-4024433a70fd?auto=format&fit=crop&w=600&q=80" alt="Evening Elegance Heels" class="carousel-img lazy-load" loading="lazy">
+            </div>
+            <div class="carousel-card-content">
+              <h4>Evening Elegance Heels</h4>
+              <p>Make a statement at any special occasion with these sophisticated heels.</p>
+              <div class="carousel-price">$179.99</div>
+              <a href="product.html" class="carousel-btn">View Details</a>
+            </div>
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="carousel-card animated">
+            <div class="feature-img">
+              <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=600&q=80" alt="Athleisure Performance" class="carousel-img lazy-load" loading="lazy">
+            </div>
+            <div class="carousel-card-content">
+              <h4>Athleisure Performance</h4>
+              <p>Where performance meets style for your active lifestyle.</p>
+              <div class="carousel-price">$139.99</div>
+              <a href="product.html" class="carousel-btn">View Details</a>
+            </div>
+          </div>
+          
+          <!-- Card 5 -->
+          <div class="carousel-card animated">
+            <div class="feature-img">
+              <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=600&q=80" alt="Heritage Boots" class="carousel-img lazy-load" loading="lazy">
+            </div>
+            <div class="carousel-card-content">
+              <h4>Heritage Boots</h4>
+              <p>Rugged durability meets refined style for the modern adventurer.</p>
+              <div class="carousel-price">$199.99</div>
+              <a href="product.html" class="carousel-btn">View Details</a>
+            </div>
+          </div>
+          
+          <!-- Card 6 -->
+          <div class="carousel-card animated">
+            <div class="feature-img">
+              <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=600&q=80" alt="Casual Weekend Sneakers" class="carousel-img lazy-load" loading="lazy">
+            </div>
+            <div class="carousel-card-content">
+              <h4>Casual Weekend Sneakers</h4>
+              <p>Perfect for your weekend adventures with ultimate comfort.</p>
+              <div class="carousel-price">$119.99</div>
+              <a href="product.html" class="carousel-btn">View Details</a>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-nav carousel-next" aria-label="Next products">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+        
+        <div class="carousel-dots">
+          <button class="carousel-dot active" data-index="0"></button>
+          <button class="carousel-dot" data-index="1"></button>
+          <button class="carousel-dot" data-index="2"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Brand Story Section -->
+  <section class="brand-story">
+    <div class="container">
+      <div class="brand-content animated">
+        <h2>Our Story</h2>
+        <p>Since 2010, MIAASA has been redefining luxury footwear with a commitment to craftsmanship, quality materials, and timeless design. Each pair is meticulously crafted by skilled artisans who share our passion for excellence.</p>
+        <p>We believe that exceptional footwear should not only look beautiful but feel incredible from the first wear. That's why we source only the finest materials and implement innovative comfort technologies in every design.</p>
+        
+        <div class="brand-stats">
+          <div class="stat-item">
+            <div class="stat-number">13+</div>
+            <div class="stat-label">Years of Excellence</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">50K+</div>
+            <div class="stat-label">Happy Customers</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">100+</div>
+            <div class="stat-label">Design Awards</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">15</div>
+            <div class="stat-label">Countries Served</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section">
+    <div class="container">
+      <h2 class="text-center mb-5 animated">What Our Customers Say</h2>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="testimonial-card animated">
+            <div class="testimonial-text">
+              "The quality of MIAASA footwear is exceptional. My boots have lasted through three seasons and still look brand new. Worth every penny!"
+            </div>
+            <div class="testimonial-author">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" class="testimonial-avatar">
+              <div>
+                <div class="testimonial-name">Sarah Johnson</div>
+                <div class="testimonial-role">Fashion Blogger</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="testimonial-card animated">
+            <div class="testimonial-text">
+              "I've never experienced such comfort in dress shoes. The memory foam insoles make a world of difference for someone who's on their feet all day."
+            </div>
+            <div class="testimonial-author">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="testimonial-avatar">
+              <div>
+                <div class="testimonial-name">Michael Chen</div>
+                <div class="testimonial-role">Architect</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="testimonial-card animated">
+            <div class="testimonial-text">
+              "The attention to detail in every stitch is remarkable. These aren't just shoes; they're works of art that happen to be incredibly comfortable."
+            </div>
+            <div class="testimonial-author">
+              <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emma Rodriguez" class="testimonial-avatar">
+              <div>
+                <div class="testimonial-name">Emma Rodriguez</div>
+                <div class="testimonial-role">Interior Designer</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Instagram Section -->
+  <section class="instagram-section">
+    <div class="container">
+      <h2 class="text-center mb-4 animated">Follow Us on Instagram</h2>
+      <p class="text-center text-muted mb-5">Tag @MIAASA for a chance to be featured</p>
+      
+      <div class="instagram-grid">
+        <div class="instagram-item">
+          <img src="https://images.unsplash.com/photo-1605812860427-4024433a70fd?auto=format&fit=crop&w=500&q=80" alt="Instagram post" class="lazy-load">
+          <div class="instagram-overlay">
+            <i class="fab fa-instagram instagram-icon"></i>
+          </div>
+        </div>
+        <div class="instagram-item">
+          <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=500&q=80" alt="Instagram post" class="lazy-load">
+          <div class="instagram-overlay">
+            <i class="fab fa-instagram instagram-icon"></i>
+          </div>
+        </div>
+        <div class="instagram-item">
+          <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=500&q=80" alt="Instagram post" class="lazy-load">
+          <div class="instagram-overlay">
+            <i class="fab fa-instagram instagram-icon"></i>
+          </div>
+        </div>
+        <div class="instagram-item">
+          <img src="https://images.unsplash.com/photo-1607522370275-f14206abe5d3?auto=format&fit=crop&w=500&q=80" alt="Instagram post" class="lazy-load">
+          <div class="instagram-overlay">
+            <i class="fab fa-instagram instagram-icon"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8 text-center animated">
+          <h2>Stay Updated</h2>
+          <p class="text-muted">Subscribe to our newsletter for exclusive offers, new arrivals, and style tips.</p>
+          <form class="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="Your email address" required aria-label="Email address for newsletter">
+            <button type="submit" class="newsletter-btn" aria-label="Subscribe to newsletter"><i class="fas fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Shop Bar -->
+  <div class="quick-shop-bar">
+    <div class="quick-shop-content">
+      <div class="quick-shop-text">
+        <h4>Limited Time Offer</h4>
+        <p>Get 20% off your first order when you sign up today</p>
+      </div>
+      <div class="quick-shop-actions">
+        <a href="product.html" class="carousel-btn">Shop Now</a>
+        <button class="carousel-btn" id="close-quick-shop">Maybe Later</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-5 mb-4 mb-md-0">
+          <h4 class="footer-title">MIAASA</h4>
+          <p>Premium footwear crafted with passion and attention to detail. Redefining elegance since 2010.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-5 mb-4 mb-md-0">
+          <h4 class="footer-title">Shop</h4>
+          <ul class="footer-links">
+            <li><a href="product.html">Women's Collection</a></li>
+            <li><a href="product.html">New Arrivals</a></li>
+            <li><a href="product.html">Sale</a></li>
+            <li><a href="product.html">Limited Edition</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h4 class="footer-title">Company</h4>
+          <ul class="footer-links">
+            <li><a href="about us.html">About Us</a></li>
+            <li><a href="#">Our Story</a></li>
+            <li><a href="#">Sustainability</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h4 class="footer-title">Support</h4>
+          <ul class="footer-links"> 
+
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Shipping & Returns</a></li>
+            <li><a href="#">Size Guide</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2023 MIAASA. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <a href="#" class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></a>
+
+  <!-- JavaScript -->
+  <script>
+    // Mobile Menu Toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuBtn = document.querySelector('.mobile-menu-btn');
+      const navLinks = document.querySelector('.nav-links');
+      if (menuBtn && navLinks) {
+        menuBtn.addEventListener('click', () => {
+          navLinks.classList.toggle('active');
+          menuBtn.innerHTML = navLinks.classList.contains('active') 
+            ? '<i class="fas fa-times"></i>' 
+            : '<i class="fas fa-bars"></i>';
+          menuBtn.setAttribute('aria-expanded', navLinks.classList.contains('active'));
+        });
+      }
+
+      // Scroll Animations
+      const animated = document.querySelectorAll('.animated');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      animated.forEach(el => observer.observe(el));
+
+      // Navbar Scroll Effect
+      const navContainer = document.querySelector('.nav-container');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+          navContainer.classList.add('scrolled');
+        } else {
+          navContainer.classList.remove('scrolled');
+        }
+      });
+
+      // Back to Top Button
+      const backToTopButton = document.querySelector('.back-to-top');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          backToTopButton.classList.add('visible');
+        } else {
+          backToTopButton.classList.remove('visible');
+        }
+      });
+
+      backToTopButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+
+      // Lazy Loading Images
+      const lazyImages = document.querySelectorAll('.lazy-load');
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.classList.add('loaded');
+            imageObserver.unobserve(img);
+          }
+        });
+      });
+
+      lazyImages.forEach(img => imageObserver.observe(img));
+
+      // Newsletter Form Submission
+      const newsletterForm = document.querySelector('.newsletter-form');
+      if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const emailInput = this.querySelector('input[type="email"]');
+          if (emailInput.value) {
+            alert('Thank you for subscribing to our newsletter!');
+            emailInput.value = '';
+          }
+        });
+      }
+
+      // Carousel Functionality
+      const carousel = document.querySelector('.cards-carousel');
+      const prevBtn = document.querySelector('.carousel-prev');
+      const nextBtn = document.querySelector('.carousel-next');
+      const cards = document.querySelectorAll('.carousel-card');
+      
+      if (carousel && prevBtn && nextBtn) {
+        let currentIndex = 0;
+        const cardWidth = cards[0].offsetWidth + 20; // Width + margin
+        const cardsPerView = Math.floor(carousel.offsetWidth / cardWidth);
+        const totalSlides = Math.ceil(cards.length / cardsPerView);
+        
+        // Update dots based on total slides
+        const dotsContainer = document.querySelector('.carousel-dots');
+        dotsContainer.innerHTML = '';
+        for (let i = 0; i < totalSlides; i++) {
+          const dot = document.createElement('button');
+          dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
+          dot.setAttribute('data-index', i);
+          dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+          dotsContainer.appendChild(dot);
+        }
+        
+        const newDots = document.querySelectorAll('.carousel-dot');
+        
+        function updateCarousel() {
+          carousel.scrollTo({
+            left: currentIndex * cardWidth * cardsPerView,
+            behavior: 'smooth'
+          });
+          
+          // Update dots
+          newDots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+          });
+        }
+        
+        prevBtn.addEventListener('click', () => {
+          currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+          updateCarousel();
+        });
+        
+        nextBtn.addEventListener('click', () => {
+          currentIndex = (currentIndex + 1) % totalSlides;
+          updateCarousel();
+        });
+        
+        // Dot navigation
+        newDots.forEach(dot => {
+          dot.addEventListener('click', () => {
+            currentIndex = parseInt(dot.getAttribute('data-index'));
+            updateCarousel();
+          });
+        });
+        
+        // Auto-advance carousel (optional)
+        let autoScroll = setInterval(() => {
+          currentIndex = (currentIndex + 1) % totalSlides;
+          updateCarousel();
+        }, 5000);
+        
+        // Pause auto-scroll on hover
+        carousel.addEventListener('mouseenter', () => {
+          clearInterval(autoScroll);
+        });
+        
+        carousel.addEventListener('mouseleave', () => {
+          autoScroll = setInterval(() => {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateCarousel();
+          }, 5000);
+        });
+        
+        // Responsive adjustments
+        window.addEventListener('resize', () => {
+          const newCardWidth = cards[0].offsetWidth + 20;
+          const newCardsPerView = Math.floor(carousel.offsetWidth / newCardWidth);
+          const newTotalSlides = Math.ceil(cards.length / newCardsPerView);
+          
+          // Update dots if needed
+          if (newTotalSlides !== totalSlides) {
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < newTotalSlides; i++) {
+              const dot = document.createElement('button');
+              dot.className = `carousel-dot ${i === currentIndex ? 'active' : ''}`;
+              dot.setAttribute('data-index', i);
+              dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+              dotsContainer.appendChild(dot);
+            }
+          }
+        });
+      }
+
+      // Quick Shop Bar
+      const quickShopBar = document.querySelector('.quick-shop-bar');
+      const closeQuickShop = document.getElementById('close-quick-shop');
+      
+      if (quickShopBar && closeQuickShop) {
+        // Show quick shop bar after 5 seconds
+        setTimeout(() => {
+          quickShopBar.classList.add('visible');
+        }, 5000);
+        
+        // Close quick shop bar
+        closeQuickShop.addEventListener('click', () => {
+          quickShopBar.classList.remove('visible');
+        });
+      }
+
+      // Add to cart functionality
+      const addToCartButtons = document.querySelectorAll('.carousel-btn');
+      const cartCount = document.querySelector('.cart-count');
+      let cartItems = 3; // Starting with 3 items as shown in the UI
+      
+      addToCartButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          if (e.target.textContent === 'View Details') return;
+          
+          e.preventDefault();
+          cartItems++;
+          cartCount.textContent = cartItems;
+          
+          // Add animation to cart icon
+          const cartIcon = document.querySelector('.fa-shopping-bag').parentElement;
+          cartIcon.style.transform = 'scale(1.2)';
+          setTimeout(() => {
+            cartIcon.style.transform = 'scale(1)';
+          }, 300);
+          
+          // Show confirmation
+          alert('Item added to cart!');
+        });
+      });
+
+      // NEW: Video functionality
+      const videoPlayer = document.querySelector('.video-player');
+      const videoOverlay = document.querySelector('.video-overlay');
+      const playButton = document.querySelector('.play-button');
+      
+      if (videoPlayer && videoOverlay && playButton) {
+        videoOverlay.addEventListener('click', () => {
+          videoOverlay.style.display = 'none';
+          videoPlayer.play();
+        });
+        
+        videoPlayer.addEventListener('click', () => {
+          if (videoPlayer.paused) {
+            videoPlayer.play();
+            videoOverlay.style.display = 'none';
+          } else {
+            videoPlayer.pause();
+            videoOverlay.style.display = 'flex';
+          }
+        });
+        
+        videoPlayer.addEventListener('ended', () => {
+          videoOverlay.style.display = 'flex';
+        });
+      }
+    });
+  </script>
+</body>
+</html>
