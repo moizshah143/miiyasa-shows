@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Us - MIAASA Premium Footwear</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --dark-bg: #0a0a0a;
+      --text-light: #f8f8f8;
+      --text-gray: #d1d1d1;
+      --accent-gold: #d4af37;
+      --accent-gold-light: #f1e5c2;
+      --border-color: rgba(255,255,255,0.15);
+      --sale-red: #e63946;
+      --card-bg: rgba(30, 30, 30, 0.65);
+      --transition-slow: 0.5s ease;
+      --transition-fast: 0.3s ease;
+    }
+
+    body {
+      background: var(--dark-bg);
+      color: var(--text-light);
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+    }
+
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--dark-bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent-gold);
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #b8941f;
+    }
+
+    /* Navigation */
+    .nav-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(15,15,15,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      transition: all var(--transition-fast);
+    }
+    
+    .nav-container.scrolled {
+      padding: 0.8rem 1.5rem;
+    }
+
+    .logo-box {
+      border: 2px solid var(--border-color);
+      padding: 0.8rem 2.5rem;
+      text-transform: uppercase;
+      letter-spacing: .4rem;
+      font-weight: 600;
+      background: transparent;
+      color: var(--text-light);
+      transition: all var(--transition-fast);
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-size: 1.3rem;
+      font-family: 'Playfair Display', serif;
+    }
+    .logo-box:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 2.8rem;
+      flex-wrap: wrap;
+      transition: max-height 0.4s ease;
+      overflow: hidden;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-gray);
+      font-size: 1.05rem;
+      letter-spacing: .15rem;
+      transition: all var(--transition-fast);
+      position: relative;
+      padding: 0.5rem 0;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .nav-links a:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-gold);
+      transition: width var(--transition-fast);
+    }
+    .nav-links a:hover {
+      color: var(--accent-gold-light);
+    }
+    .nav-links a:hover:after {
+      width: 100%;
+    }
+
+    .nav-icons {
+      display: flex;
+      gap: 1.8rem;
+      align-items: center;
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+    }
+    .nav-icon {
+      color: var(--text-gray);
+      font-size: 1.4rem;
+      transition: all var(--transition-fast);
+      position: relative;
+    }
+    .nav-icon:hover {
+      color: var(--accent-gold);
+      transform: translateY(-3px);
+    }
+    
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--sale-red);
+      color: white;
+      font-size: 0.7rem;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-gray);
+      font-size: 1.6rem;
+      cursor: pointer;
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 100;
+      transition: all var(--transition-fast);
+    }
+    .mobile-menu-btn:hover {
+      color: var(--accent-gold);
+    }
+
+    /* Page Header */
+    .page-header {
+      position: relative;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-top: 120px;
+      text-align: center;
+    }
+    .page-header-bg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+      filter: brightness(0.4);
+    }
+    .page-header-content {
+      z-index: 1;
+      position: relative;
+      max-width: 800px;
+      padding: 0 2rem;
+    }
+    .page-header h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      color: var(--text-light);
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    }
+    .page-header p {
+      font-size: 1.2rem;
+      color: var(--text-gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* About Sections */
+    .about-section {
+      padding: 100px 0;
+    }
+    .about-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .about-img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      transition: all var(--transition-slow);
+    }
+    .about-img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+    }
+    .about-text {
+      padding: 2rem;
+    }
+    .about-text h2 {
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    .about-text h2:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--accent-gold);
+    }
+    .about-text p {
+      color: var(--text-gray);
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    /* Values Section */
+    .values-section {
+      padding: 100px 0;
+      background: rgba(10, 10, 10, 0.7);
+    }
+    .value-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 2.5rem;
+      text-align: center;
+      border: 1px solid var(--border-color);
+      transition: all var(--transition-slow);
+      height: 100%;
+    }
+    .value-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--accent-gold);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    }
+    .value-icon {
+      font-size: 3rem;
+      color: var(--accent-gold);
+      margin-bottom: 1.5rem;
+      transition: all var(--transition-fast);
+    }
+    .value-card:hover .value-icon {
+      transform: scale(1.1);
+    }
+    .value-card h3 {
+      margin-bottom: 1rem;
+    }
+    .value-card p {
+      color: var(--text-gray);
+    }
+
+    /* Team Section */
+    .team-section {
+      padding: 100px 0;
+    }
+    .team-member {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .team-img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 1.5rem;
+      border: 3px solid var(--border-color);
+      transition: all var(--transition-slow);
+    }
+    .team-member:hover .team-img {
+      border-color: var(--accent-gold);
+      transform: scale(1.05);
+    }
+    .team-member h3 {
+      margin-bottom: 0.5rem;
+    }
+    .team-role {
+      color: var(--accent-gold);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    .team-bio {
+      color: var(--text-gray);
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    /* Timeline Section */
+    .timeline-section {
+      padding: 100px 0;
+      background: rgba(10, 10, 10, 0.7);
+    }
+    .timeline {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .timeline:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: var(--accent-gold);
+      transform: translateX(-50%);
+    }
+    .timeline-item {
+      padding: 10px 40px;
+      position: relative;
+      width: 50%;
+      box-sizing: border-box;
+    }
+    .timeline-item:nth-child(odd) {
+      left: 0;
+    }
+    .timeline-item:nth-child(even) {
+      left: 50%;
+    }
+    .timeline-content {
+      padding: 20px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      transition: all var(--transition-fast);
+    }
+    .timeline-content:hover {
+      border-color: var(--accent-gold);
+      transform: translateY(-5px);
+    }
+    .timeline-year {
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+    .timeline-dot {
+      position: absolute;
+      top: 20px;
+      right: -10px;
+      width: 20px;
+      height: 20px;
+      background: var(--accent-gold);
+      border-radius: 50%;
+    }
+    .timeline-item:nth-child(even) .timeline-dot {
+      left: -10px;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 100px 0;
+      text-align: center;
+    }
+    .cta-section h2 {
+      margin-bottom: 1.5rem;
+    }
+    .cta-section p {
+      color: var(--text-gray);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      font-size: 1.1rem;
+    }
+    .cta-button {
+      background: linear-gradient(135deg, var(--accent-gold), #b8941f);
+      color: var(--dark-bg);
+      padding: 1.2rem 3rem;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 25px rgba(212,175,55,0.4);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .cta-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(212,175,55,0.6);
+      background: linear-gradient(135deg, #b8941f, var(--accent-gold));
+      color: var(--dark-bg);
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(10, 10, 10, 0.95);
+      border-top: 1px solid var(--border-color);
+      padding: 4rem 0 2rem;
+      margin-top: 5rem;
+    }
+    .footer-title {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    .footer-title:after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--accent-gold);
+    }
+    .footer-links {
+      list-style: none;
+      padding: 0;
+    }
+    .footer-links li {
+      margin-bottom: 0.8rem;
+      transition: all 0.3s ease;
+    }
+    .footer-links li:hover {
+      transform: translateX(5px);
+    }
+    .footer-links a {
+      color: var(--text-gray);
+      text-decoration: none;
+      transition: all var(--transition-fast);
+    }
+    .footer-links a:hover {
+      color: var(--accent-gold);
+      padding-left: 5px;
+    }
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      color: var(--text-light);
+      transition: all var(--transition-fast);
+    }
+    .social-links a:hover {
+      background: var(--accent-gold);
+      color: var(--dark-bg);
+      transform: translateY(-3px);
+    }
+    .copyright {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-gray);
+      font-size: 0.9rem;
+    }
+    
+    /* Newsletter */
+    .newsletter-form {
+      display: flex;
+      margin-top: 1rem;
+    }
+    .newsletter-input {
+      flex-grow: 1;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid var(--border-color);
+      border-right: none;
+      border-radius: 4px 0 0 4px;
+      padding: 0.75rem 1rem;
+      color: var(--text-light);
+      outline: none;
+      transition: all var(--transition-fast);
+    }
+    .newsletter-input:focus {
+      background: rgba(255,255,255,0.15);
+      border-color: var(--accent-gold);
+    }
+    .newsletter-btn {
+      background: var(--accent-gold);
+      color: var(--dark-bg);
+      border: none;
+      border-radius: 0 4px 4px 0;
+      padding: 0 1.2rem;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .newsletter-btn:hover {
+      background: #b8941f;
+      transform: scale(1.05);
+    }
+
+    /* Back to Top */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      color: var(--dark-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--transition-fast);
+      z-index: 999;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    .back-to-top:hover {
+      transform: translateY(-5px);
+      background: #b8941f;
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animated { opacity: 0; }
+    .show { animation: fadeUp 1s ease forwards; }
+
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .page-header h1 { font-size: 3.5rem; }
+      .timeline:before { left: 31px; }
+      .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+      .timeline-item:nth-child(even) { left: 0; }
+      .timeline-dot { left: 21px !important; }
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-btn { display: block; }
+      .nav-links {
+        flex-direction: column;
+        width: 100%;
+        background: rgba(15,15,15,0.95);
+        padding: 2rem 0;
+        max-height: 0;
+      }
+      .nav-links.active { 
+        max-height: 500px; 
+        padding: 2rem 0;
+      }
+      .page-header { height: 50vh; margin-top: 100px; }
+      .page-header h1 { font-size: 2.5rem; }
+      .page-header p { font-size: 1rem; }
+      .about-section, .values-section, .team-section, .timeline-section, .cta-section { padding: 80px 0; }
+      .newsletter-form {
+        flex-direction: column;
+      }
+      .newsletter-input {
+        border-right: 1px solid var(--border-color);
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+      }
+      .newsletter-btn {
+        border-radius: 4px;
+        padding: 0.75rem 1rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .page-header h1 { font-size: 2rem; }
+      .nav-icons { gap: 1.2rem; }
+      .nav-icon { font-size: 1.2rem; }
+      .logo-box {
+        padding: 0.6rem 1.5rem;
+        font-size: 1.1rem;
+        letter-spacing: .2rem;
+      }
+      .value-card { padding: 1.5rem; }
+      .cta-button { padding: 1rem 2rem; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <div class="nav-container">
+    <button class="mobile-menu-btn" aria-label="Toggle navigation menu"><i class="fas fa-bars"></i></button>
+    <div class="nav-icons">
+      <a href="#" class="nav-icon" aria-label="Search"><i class="fas fa-search"></i></a>
+      <a href="#" class="nav-icon" aria-label="Account"><i class="fas fa-user"></i></a>
+      <a href="#" class="nav-icon" aria-label="Shopping cart"><i class="fas fa-shopping-bag"></i><span class="cart-count">3</span></a>
+    </div>
+    <a href="index.html" class="logo-box text-decoration-none">MIAASA</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="product.html">Collections</a>
+      <a href="contact.html">Contact</a>
+      <a href="about us.html" class="active">About Us</a>
+    </nav>
+  </div>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="page-header-bg"></div>
+    <div class="page-header-content">
+      <h1 class="animated">Our Story</h1>
+      <p class="animated">Discover the passion, craftsmanship, and dedication behind every pair of MIAASA footwear</p>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section">
+    <div class="about-content">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <img src="https://images.unsplash.com/photo-1605348532760-6753d2c5c97b?auto=format&fit=crop&w=1000&q=80" alt="MIAASA Craftsmanship" class="about-img animated">
+        </div>
+        <div class="col-lg-6">
+          <div class="about-text animated">
+            <h2>Our Heritage</h2>
+            <p>Founded in 2010, MIAASA emerged from a simple vision: to create footwear that seamlessly blends timeless elegance with contemporary comfort. Our journey began in a small workshop in Milan, where our founder, Alessandro Moretti, combined traditional Italian shoemaking techniques with innovative design concepts.</p>
+            <p>Today, MIAASA stands as a testament to this vision, with our collections gracing the feet of discerning customers across 15 countries worldwide. Each pair tells a story of meticulous craftsmanship, premium materials, and an unwavering commitment to quality.</p>
+            <p>We believe that exceptional footwear should not only elevate your style but also provide unparalleled comfort from the first wear to the last step.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="values-section">
+    <div class="container">
+      <h2 class="text-center mb-5 animated">Our Values</h2>
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="value-card animated">
+            <div class="value-icon">
+              <i class="fas fa-gem"></i>
+            </div>
+            <h3>Craftsmanship</h3>
+            <p>Every MIAASA shoe is meticulously crafted by skilled artisans who have honed their craft over decades. We honor traditional techniques while embracing innovation.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="value-card animated">
+            <div class="value-icon">
+              <i class="fas fa-leaf"></i>
+            </div>
+            <h3>Sustainability</h3>
+            <p>We're committed to responsible sourcing and ethical production. Our leathers are sustainably sourced, and we continuously work to reduce our environmental footprint.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="value-card animated">
+            <div class="value-icon">
+              <i class="fas fa-heart"></i>
+            </div>
+            <h3>Quality</h3>
+            <p>From material selection to final inspection, we maintain uncompromising standards. Each pair undergoes rigorous quality checks to ensure lasting durability and comfort.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="team-section">
+    <div class="container">
+      <h2 class="text-center mb-5 animated">Meet Our Founders</h2>
+      <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-6">
+          <div class="team-member animated">
+            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Alessandro Moretti" class="team-img">
+            <h3>Alessandro Moretti</h3>
+            <div class="team-role">Founder & Creative Director</div>
+            <p class="team-bio">With over 25 years in luxury footwear, Alessandro's vision drives MIAASA's design philosophy and commitment to excellence.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="team-member animated">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Isabella Rossi" class="team-img">
+            <h3>Isabella Rossi</h3>
+            <div class="team-role">Co-Founder & Production Lead</div>
+            <p class="team-bio">Isabella ensures every pair meets our exacting standards, overseeing production with an expert eye for detail and quality.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline Section -->
+  <section class="timeline-section">
+    <div class="container">
+      <h2 class="text-center mb-5 animated">Our Journey</h2>
+      <div class="timeline">
+        <div class="timeline-item animated">
+          <div class="timeline-content">
+            <div class="timeline-year">2010</div>
+            <h4>Foundation</h4>
+            <p>MIAASA was founded in Milan with a small collection of handcrafted leather shoes. Our first workshop opened its doors with just three master craftsmen.</p>
+          </div>
+          <div class="timeline-dot"></div>
+        </div>
+        <div class="timeline-item animated">
+          <div class="timeline-content">
+            <div class="timeline-year">2013</div>
+            <h4>First International Recognition</h4>
+            <p>Our Heritage Collection received the prestigious Italian Design Award, marking our entry into the international luxury footwear market.</p>
+          </div>
+          <div class="timeline-dot"></div>
+        </div>
+        <div class="timeline-item animated">
+          <div class="timeline-content">
+            <div class="timeline-year">2016</div>
+            <h4>Global Expansion</h4>
+            <p>We opened flagship stores in Paris, London, and New York, establishing MIAASA as a global brand while maintaining our artisanal roots.</p>
+          </div>
+          <div class="timeline-dot"></div>
+        </div>
+        <div class="timeline-item animated">
+          <div class="timeline-content">
+            <div class="timeline-year">2019</div>
+            <h4>Sustainability Initiative</h4>
+            <p>Launched our comprehensive sustainability program, committing to ethically sourced materials and carbon-neutral production by 2025.</p>
+          </div>
+          <div class="timeline-dot"></div>
+        </div>
+        <div class="timeline-item animated">
+          <div class="timeline-content">
+            <div class="timeline-year">2023</div>
+            <h4>Digital Innovation</h4>
+            <p>Introduced our virtual fitting technology and expanded our e-commerce presence, making MIAASA accessible to customers worldwide.</p>
+          </div>
+          <div class="timeline-dot"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="animated">Experience MIAASA</h2>
+      <p class="animated">Discover the perfect blend of style, comfort, and craftsmanship that has defined our brand for over a decade.</p>
+      <a href="product.html" class="cta-button animated">Explore Collections</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-5 mb-4 mb-md-0">
+          <h4 class="footer-title">MIAASA</h4>
+          <p>Premium footwear crafted with passion and attention to detail. Redefining elegance since 2010.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-5 mb-4 mb-md-0">
+          <h4 class="footer-title">Shop</h4>
+          <ul class="footer-links">
+            <li><a href="product.html">Women's Collection</a></li>
+            <li><a href="product.html">New Arrivals</a></li>
+            <li><a href="product.html">Sale</a></li>
+            <li><a href="product.html">Limited Edition</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h4 class="footer-title">Company</h4>
+          <ul class="footer-links">
+            <li><a href="about us.html">About Us</a></li>
+            <li><a href="#">Our Story</a></li>
+            <li><a href="#">Sustainability</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h4 class="footer-title">Support</h4>
+          <ul class="footer-links">
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Shipping & Returns</a></li>
+            <li><a href="#">Size Guide</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2023 MIAASA. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <a href="#" class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></a>
+
+  <!-- JavaScript -->
+  <script>
+    // Mobile Menu Toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuBtn = document.querySelector('.mobile-menu-btn');
+      const navLinks = document.querySelector('.nav-links');
+      if (menuBtn && navLinks) {
+        menuBtn.addEventListener('click', () => {
+          navLinks.classList.toggle('active');
+          menuBtn.innerHTML = navLinks.classList.contains('active') 
+            ? '<i class="fas fa-times"></i>' 
+            : '<i class="fas fa-bars"></i>';
+          menuBtn.setAttribute('aria-expanded', navLinks.classList.contains('active'));
+        });
+      }
+
+      // Scroll Animations
+      const animated = document.querySelectorAll('.animated');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      animated.forEach(el => observer.observe(el));
+
+      // Navbar Scroll Effect
+      const navContainer = document.querySelector('.nav-container');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+          navContainer.classList.add('scrolled');
+        } else {
+          navContainer.classList.remove('scrolled');
+        }
+      });
+
+      // Back to Top Button
+      const backToTopButton = document.querySelector('.back-to-top');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          backToTopButton.classList.add('visible');
+        } else {
+          backToTopButton.classList.remove('visible');
+        }
+      });
+
+      backToTopButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+
+      // Newsletter Form Submission
+      const newsletterForm = document.querySelector('.newsletter-form');
+      if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const emailInput = this.querySelector('input[type="email"]');
+          if (emailInput.value) {
+            alert('Thank you for subscribing to our newsletter!');
+            emailInput.value = '';
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
